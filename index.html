@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EducaTec | Colegio Inteligente</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-2: #06b6d4;
+      --secondary: #0f172a;
+      --light: #f8fbff;
+      --white: #ffffff;
+      --gray: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    html, body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(96, 165, 250, 0.20), transparent 26%),
+        radial-gradient(circle at 85% 18%, rgba(37, 99, 235, 0.18), transparent 24%),
+        radial-gradient(circle at 50% 82%, rgba(14, 165, 233, 0.10), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, #eef5ff 48%, #ffffff 100%);
+      color: var(--secondary);
+      overflow-x: hidden;
+      padding-top: 126px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px);
+      background-size: 110px 110px;
+      opacity: .16;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.35) 70%, transparent 100%);
+    }
+
+    main, section, nav, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .navbar {
+      background: rgba(15, 23, 42, 0.92) !important;
+      backdrop-filter: blur(12px);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #60a5fa;
+      transition: .25s ease;
+    }
+
+    .nav-link:hover::after { width: 100%; }
+
+    .btn-main {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      transition: .25s ease;
+      box-shadow: 0 10px 22px rgba(37, 99, 235, .22);
+    }
+
+    .btn-main:hover { transform: translateY(-2px); color: white; }
+
+    .btn-outline-custom {
+      border: 2px solid rgba(255,255,255,.95);
+      color: white;
+      padding: 13px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      background: transparent;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* HERO PRINCIPAL */
+    .hero-panel {
+      background: linear-gradient(135deg, #02101e 0%, #052646 100%);
+      border-radius: 40px;
+      padding: 80px 40px 60px;
+      color: white;
+      position: relative;
+      box-shadow: 0 30px 70px rgba(3, 21, 37, 0.25);
+      overflow: hidden;
+      margin-top: -120px;
+      margin-bottom: 60px;
+    }
+
+    .hero-panel::before,
+    .hero-panel::after {
+      width: 220px;
+      height: 220px;
+      background: var(--primary-2);
+      bottom: -70px;
+      left: -40px;
+    }
+
+    .hero-panel .row {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-panel::before {
+      width: 280px;
+      height: 280px;
+      background: var(--primary);
+      top: -70px;
+      right: -60px;
+    }
+
+    .hero-panel::after {
+      width: 220px;
+      height: 220px;
+      background: var(--primary-2);
+      bottom: -70px;
+      left: -40px;
+    }
+
+    .sidebar-features {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 25px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .sidebar-item {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      transition: transform .2s ease, color .2s ease;
+    }
+
+    .sidebar-item i {
+      font-size: 1.6rem;
+      color: #a0c4ff;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .sidebar-item span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: block;
+      line-height: 1.2;
+    }
+
+    .sidebar-item:hover { color: #fff; transform: scale(1.05); }
+
+    .hero-text-side { padding-left: 20px; }
+
+    .hero-badge-title {
+      font-size: clamp(2.8rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge-title span { color: #60a5fa; }
+    .hero-badge-title em { font-style: normal; color: #38bdf8; }
+
+    .hero-description {
+      font-size: 1.08rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      margin-bottom: 35px;
+      max-width: 460px;
+      line-height: 1.8;
+    }
+
+    .btn-explora {
+      background-color: #0073e6;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 12px 24px rgba(0, 115, 230, 0.22);
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-explora:hover { background-color: #005bb8; transform: translateY(-3px); color: white; }
+
+    .btn-virtual {
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-virtual:hover { background-color: rgba(255, 255, 255, 0.1); border-color: white; color: white; transform: translateY(-3px); }
+
+    .right-composition-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 420px;
+      margin-top: 24px;
+    }
+
+    .bg-shape-block {
+      position: absolute;
+      border-radius: 25px;
+      z-index: 1;
+    }
+
+    .shape-blue-1 {
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
+      width: 280px;
+      height: 280px;
+      top: -20px;
+      left: 20px;
+    }
+
+    .shape-blue-2 {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      width: 220px;
+      height: 150px;
+      top: -30px;
+      right: -10px;
+    }
+
+    .shape-blue-3 {
+      background: #0052cc;
+      width: 180px;
+      height: 260px;
+      bottom: -10px;
+      right: -20px;
+      border-radius: 30px;
+    }
+
+    .shape-blue-4 {
+      background: #3b82f6;
+      width: 160px;
+      height: 140px;
+      bottom: -20px;
+      left: 20px;
+    }
+
+    .carousel-frame-container {
+      position: absolute;
+      z-index: 5;
+      width: 90%;
+      max-width: 440px;
+      top: 20px;
+      left: 60px;
+      background: rgba(255, 255, 255, 0.10);
+      padding: 12px;
+      border-radius: 32px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .carousel-frame-container:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.36);
+    }
+
+    .card-carousel-modern {
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      border: none;
+      transition: transform .25s ease;
+    }
+
+    .card-carousel-modern:hover { transform: scale(1.01); }
+
+    .card-carousel-modern img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .card-carousel-body {
+      padding: 20px;
+      color: #333333;
+      background: #ffffff;
+    }
+
+    .carousel-control-prev-custom,
+    .carousel-control-next-custom {
+      width: 35px;
+      height: 35px;
+      background: white;
+      border-radius: 50%;
+      top: 40%;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      border: none;
+      z-index: 10;
+    }
+
+    .carousel-control-prev-custom { left: -18px; }
+    .carousel-control-next-custom { right: -18px; }
+    .carousel-control-prev-custom i,
+    .carousel-control-next-custom i {
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    .pilares-section {
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
+    .pilares-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #031525;
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    .pilar-pill {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 115, 230, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 115, 230, 0.04);
+      padding: 12px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      color: #0c2340;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .pilar-pill:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 115, 230, 0.10);
+    }
+
+    .pilar-pill i { font-size: 1.2rem; }
+    .pilar-pill.tech i { color: #2563eb; }
+    .pilar-pill.science i { color: #60a5fa; }
+    .pilar-pill.leader i { color: #1d4ed8; }
+
+    .hero-actions-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin-top: 8px;
+    }
+
+    .action-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .action-menu {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      min-width: 290px;
+      background: rgba(255,255,255,.96);
+      color: #0f172a;
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 16px 34px rgba(2, 6, 23, .18);
+      border: 1px solid rgba(226,232,240,.8);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all .22s ease;
+      z-index: 20;
+    }
+
+    .action-menu.secondary { min-width: 270px; }
+
+    .action-dropdown:hover .action-menu,
+    .action-dropdown:focus-within .action-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .action-menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 600;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    .action-menu a:hover {
+      background: #eff6ff;
+      transform: translateX(3px);
+    }
+
+    .hero-fine-note {
+      margin-top: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.82);
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: .92rem;
+    }
+
+    .hero-fine-note i { color: #60a5fa; }
+    .pilar-pill.science i { color: #60a5fa; }
+    .pilar-pill.leader i { color: #1d4ed8; }
+
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.7rem;
+    }
+
+    .feature-card {
+      background: white;
+      border: none;
+      border-radius: 30px;
+      overflow: hidden;
+      transition: .25s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .feature-card:hover { transform: translateY(-8px); box-shadow: 0 16px 36px rgba(0,0,0,.12); }
+    .feature-card img { height: 240px; object-fit: cover; }
+
+    .stats {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      border-radius: 40px;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+    }
+
+    .news-card {
+      border: none;
+      border-radius: 35px;
+      overflow: hidden;
+      box-shadow: 0 10px 35px rgba(0,0,0,.1);
+    }
+
+    .footer {
+      background: #020617;
+      color: white;
+    }
+
+    .footer a { color: #cbd5e1; text-decoration: none; }
+    .footer a:hover { color: white; }
+
+    @media (max-width: 991px) {
+      .hero-panel { padding: 40px 24px; }
+      .hero-text-side { padding-left: 0; }
+      .hero-badge-title { font-size: 3rem; }
+      .carousel-frame-container {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 96%;
+      }
+      .right-composition-wrapper { min-height: 380px; margin-top: 40px; }
+      .carousel-frame-container { max-width: 520px; }
+    }
+
+    @media (max-width: 767px) {
+      .hero-panel { border-radius: 28px; }
+      .hero-badge-title { font-size: 2.5rem; }
+      .hero-description { font-size: 1rem; }
+      .btn-explora, .btn-virtual { width: 100%; }
+      .hero-panel .d-flex.flex-wrap { gap: 12px !important; }
+      .right-composition-wrapper { min-height: 340px; }
+      .carousel-frame-container { top: 10px; }
+      .shape-blue-1 { width: 200px; height: 200px; }
+      .shape-blue-2 { width: 170px; }
+      .shape-blue-3 { width: 150px; height: 220px; }
+      .shape-blue-4 { width: 130px; height: 110px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 shadow-sm">
+    <div class="container">
+
+        <img src="./img/logo.png" alt="logo" width="50px">
+      <a class="navbar-brand fw-bold fs-3" href="#inicio">Educa<span class="text-info">Tec</span></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#programas">Programas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#eventos">Eventos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          <li class="nav-item ms-lg-3 mt-3 mt-lg-0"><a class="btn btn-main" href="#login">Iniciar sesión</a></li>
+          <li class="nav-item ms-lg-2 mt-3 mt-lg-0"><a class="btn btn-outline-custom" href="#registro">Registrarse</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="inicio">
+    <div class="hero-panel">
+      <div class="row align-items-center g-4">
+        <div class="col-md-2 col-lg-1 d-none d-md-block">
+          <div class="sidebar-features">
+            <div class="sidebar-item">
+              <i class="bi bi-mortarboard-fill"></i>
+              <span>educacion</span>
+            </div>
+            <div class="sidebar-item">
+              <i class="bi bi-lightbulb"></i>
+              <span>inovacion</span>
+            </div>
+            <div class="sidebar-item">
+              <i class="bi bi-clipboard-check"></i>
+              <span>Planeacion</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-10 col-lg-5 hero-text-side mt-3 mt-md-0">
+          <h1 class="hero-badge-title">
+            <span>DONDE</span> LA <em>TECNOLOGIA <span>IMPIULSA </em></span> EL <span><em>SABER</em> </span>
+          </h1>
+          <p class="hero-description">
+            <strong>EducaTec:</strong> Transformando mentes. Impulsando el mañana a través del conocimiento y la práctica activa.
+          </p>
+          <div class="hero-actions-group">
+            <div class="action-dropdown">
+              <button class="btn btn-explora">Explora Programas <i class="bi bi-chevron-down ms-2"></i></button>
+              <div class="action-menu">
+                <a href="#programas">Tecnología y programación</a>
+                <a href="#programas">Ciencia y laboratorios</a>
+                <a href="#programas">Arte y creatividad</a>
+              </div>
+            </div>
+
+            <div class="action-dropdown">
+              <button class="btn btn-virtual">Conoce el Campus Virtual <i class="bi bi-chevron-down ms-2"></i></button>
+              <div class="action-menu secondary">
+                <a href="#servicios">Acceso a clases</a>
+                <a href="#eventos">Eventos académicos</a>
+                <a href="#contacto">Solicitar información</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mt-5 mt-lg-0">
+          <div class="right-composition-wrapper">
+            <div class="bg-shape-block shape-blue-1"></div>
+            <div class="bg-shape-block shape-blue-2"></div>
+            <div class="bg-shape-block shape-blue-3"></div>
+            <div class="bg-shape-block shape-blue-4"></div>
+
+            <div class="carousel-frame-container">
+              <div id="sliderEstudiantes" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="card card-carousel-modern">
+                      <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=600&q=80" alt="Estudiantes de tecnología">
+                      <div class="card-carousel-body">
+                        <h5 class="fw-bold mb-2">Aprendizaje activo</h5>
+                        <p class="mb-0 text-secondary">Estudiantes trabajando en proyectos reales y colaborativos.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="card card-carousel-modern">
+                      <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80" alt="Instalaciones del colegio">
+                      <div class="card-carousel-body">
+                        <h5 class="fw-bold mb-2">Campus moderno</h5>
+                        <p class="mb-0 text-secondary">Espacios académicos diseñados para inspirar y crear.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="card card-carousel-modern">
+                      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="Clase colaborativa">
+                      <div class="card-carousel-body">
+                        <h5 class="fw-bold mb-2">Trabajo en equipo</h5>
+                        <p class="mb-0 text-secondary">Clases dinámicas para aprendizaje colaborativo e innovación.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="carousel-control-prev-custom" type="button" data-bs-target="#sliderEstudiantes" data-bs-slide="prev">
+                  <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="carousel-control-next-custom" type="button" data-bs-target="#sliderEstudiantes" data-bs-slide="next">
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="container pilares-section">
+    <div class="d-flex flex-wrap align-items-center gap-3">
+      <span class="pilares-title">Nuestras Materias:</span>
+      <div class="pilar-pill tech"><i class="bi bi-cpu-fill"></i> Tecnología</div>
+      <div class="pilar-pill science"><i class="bi bi-atom"></i> Ciencia</div>
+      <div class="pilar-pill leader"><i class="bi bi-person-up"></i> Sociales</div>
+    </div>
+  </section>
+
+  <section class="py-5" id="servicios">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="section-title">¿Qué ofrece EducaTec?</h2>
+        <p class="section-subtitle">Un entorno académico profesional con herramientas modernas y diseño futurista.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box mx-auto mb-4"><i class="bi bi-laptop"></i></div>
+            <h4 class="fw-bold">Plataforma virtual</h4>
+            <p class="text-secondary">Acceso rápido a tareas, horarios y contenido educativo.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">ñ
+          <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box mx-auto mb-4"><i class="bi bi-bar-chart-fill"></i></div>
+            <h4 class="fw-bold">Seguimiento</h4>
+            <p class="text-secondary">Consulta de notas y progreso académico en tiempo real.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box mx-auto mb-4"><i class="bi bi-shield-check"></i></div>
+            <h4 class="fw-bold">Seguridad</h4>
+            <p class="text-secondary">Información protegida y acceso seguro para la comunidad.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box mx-auto mb-4"><i class="bi bi-phone"></i></div>
+            <h4 class="fw-bold">Responsive</h4>
+            <p class="text-secondary">Compatible con celulares, tablets y computadores.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-white" id="programas">
+    <div class="container py-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <h2 class="section-title">Programas destacados</h2>
+          <p class="text-secondary fs-5 mb-4">Formación académica innovadora para preparar estudiantes en tecnología, ciencia y creatividad.</p>
+
+          <div class="d-flex flex-column gap-4">
+            <div class="d-flex gap-3 align-items-start">
+              <div class="icon-box"><i class="bi bi-code-slash"></i></div>
+              <div>
+                <h5 class="fw-bold">Programación y tecnología</h5>
+                <p class="text-secondary mb-0">Aprendizaje moderno en desarrollo digital y herramientas tecnológicas.</p>
+              </div>
+            </div>
+            <div class="d-flex gap-3 align-items-start">
+              <div class="icon-box"><i class="bi bi-flask"></i></div>
+              <div>
+                <h5 class="fw-bold">Laboratorios científicos</h5>
+                <p class="text-secondary mb-0">Espacios modernos para prácticas experimentales y científicas.</p>
+              </div>
+            </div>
+            <div class="d-flex gap-3 align-items-start">
+              <div class="icon-box"><i class="bi bi-palette-fill"></i></div>
+              <div>
+                <h5 class="fw-bold">Arte y creatividad</h5>
+                <p class="text-secondary mb-0">Desarrollo artístico en música, pintura y diseño creativo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" class="img-fluid rounded-5 shadow-lg" alt="Educación moderna">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5" id="galeria">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="section-title">¿Por qué elegir EducaTec?</h2>
+        <p class="section-subtitle">Un colegio preparado para formar estudiantes con visión, creatividad y habilidades tecnológicas.</p>
+      </div>
+
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-4">
+          <div class="feature-card p-5 h-100 text-center">
+            <div class="icon-box mx-auto mb-4"><i class="bi bi-award-fill"></i></div>
+            <h3 class="fw-bold mb-3">Excelencia académica</h3>
+            <p class="text-secondary mb-0">Programas educativos diseñados para potenciar el talento y el aprendizaje de cada estudiante.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="feature-card p-5 h-100 text-center position-relative overflow-hidden">
+            <div class="position-absolute top-0 start-0 w-100 h-100" style="background:linear-gradient(135deg,#2563eb,#1e3a8a);opacity:.08;"></div>
+            <div class="position-relative">
+              <div class="icon-box mx-auto mb-4"><i class="bi bi-cpu-fill"></i></div>
+              <h3 class="fw-bold mb-3">Tecnología avanzada</h3>
+              <p class="text-secondary mb-4">Herramientas digitales modernas y espacios interactivos para una educación innovadora.</p>
+              <div class="d-flex justify-content-center gap-2 flex-wrap">
+                <span class="badge bg-primary rounded-pill px-3 py-2">Robótica</span>
+                <span class="badge bg-dark rounded-pill px-3 py-2">Programación</span>
+                <span class="badge bg-info rounded-pill px-3 py-2">IA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="feature-card p-5 h-100 text-center">
+            <div class="icon-box mx-auto mb-4"><i class="bi bi-people-fill"></i></div>
+            <h3 class="fw-bold mb-3">Comunidad educativa</h3>
+            <p class="text-secondary mb-0">Un entorno seguro y colaborativo donde estudiantes, docentes y familias trabajan juntos.</p>
+          </div>
+        </div>
+      </div>
+
+
+  </section>
+
+  <section class="py-5 bg-light" id="eventos">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Eventos destacados</h2>
+        <p class="section-subtitle">Cards dentro de un carrusel moderno.</p>
+      </div>
+
+      <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="news-card bg-white">
+              <div class="row g-0 align-items-center">
+                <div class="col-lg-6">
+                  <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80" class="img-fluid h-100 object-fit-cover" alt="Evento">
+                </div>
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">Evento</span>
+                    <h2 class="fw-bold mb-4">Feria tecnológica 2026</h2>
+                    <p class="text-secondary mb-4">Un espacio donde los estudiantes muestran proyectos innovadores de programación, robótica y diseño digital.</p>
+                    <button class="btn btn-main">Ver más</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="news-card bg-white">
+              <div class="row g-0 align-items-center">
+                <div class="col-lg-6">
+                  <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=1200&q=80" class="img-fluid h-100 object-fit-cover" alt="Conferencia">
+                </div>
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <span class="badge bg-dark px-3 py-2 rounded-pill mb-3">Conferencia</span>
+                    <h2 class="fw-bold mb-4">Semana académica</h2>
+                    <p class="text-secondary mb-4">Charlas educativas, actividades y experiencias interactivas para toda la comunidad estudiantil.</p>
+                    <button class="btn btn-main">Explorar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bg-dark rounded-circle p-4"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselEventos" data-bs-slide="next">
+          <span class="carousel-control-next-icon bg-dark rounded-circle p-4"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer py-5">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <h2 class="fw-bold mb-3">EducaTec</h2>
+          <p class="text-light-emphasis">Plataforma educativa moderna diseñada para colegios innovadores.</p>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="fw-bold mb-3">Enlaces rápidos</h5>
+          <div class="d-flex flex-column gap-2">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#programas">Programas</a>
+            <a href="#eventos">Eventos</a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="fw-bold mb-3">Redes sociales</h5>
+          <div class="d-flex gap-3 fs-3">
+            <i class="bi bi-facebook"></i>
+            <i class="bi bi-instagram"></i>
+            <i class="bi bi-youtube"></i>
+            <i class="bi bi-whatsapp"></i>
+          </div>
+        </div>
+      </div>
+      <hr class="my-5 border-secondary">
+      <div class="text-center text-light-emphasis">© 2026 EducaTec - Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
